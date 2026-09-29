@@ -1,0 +1,22 @@
+name: deepseek-quota
+version: 1.0.0
+description: >
+  Tracks DeepSeek provider quota usage — token counts per session and cumulative,
+  live account balance from the DeepSeek API, and a /deepseek-quota slash command.
+author: Antigravity
+provides_tools:
+  - deepseek_quota_check
+provides_hooks:
+  - post_api_request
+  - on_session_end
+requires_env:
+  - name: DEEPSEEK_API_KEY
+    description: "Your DeepSeek API key (used to fetch live account balance)"
+    url: "https://platform.deepseek.com/api-keys"
+    secret: true
+config_schema:
+  low_balance_warn_threshold:
+    type: float
+    default: 1.0
+    label: "Low Balance Warning Threshold"
+    description: "Warn when total balance drops below this value (in your account's currency — USD or CNY). Set 0 to disable."
